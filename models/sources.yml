@@ -1,0 +1,12 @@
+sources:
+  - name: raw
+    description: Raw data from CSV files
+    database: postgres
+    schema: raw
+
+    tables:
+      - name: census1
+      - name: census2
+      - name: code
+      - name: suburb
+      - name: listings
