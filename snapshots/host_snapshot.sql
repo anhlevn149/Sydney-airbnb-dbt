@@ -11,7 +11,7 @@
 }}
 
 select 
-    host_id,
+    distinct host_id,
     host_name,
     host_since,
     host_is_superhost,

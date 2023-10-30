@@ -5,16 +5,13 @@
     config(
         target_schema='raw',
         strategy='timestamp',
-        unique_key='listing_id',
+        unique_key='property_type',
         updated_at='scraped_date',
     ) 
 }}
 
 select 
-    listing_id,
-    listing_neighbourhood,
-    property_type,
-    has_availability,
+    distinct property_type,
     scraped_date
 from {{ source('raw', 'listings') }}
 

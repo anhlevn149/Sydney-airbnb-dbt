@@ -5,13 +5,13 @@
     config(
         target_schema='raw',
         strategy='timestamp',
-        unique_key='listing_id',
+        unique_key='room_type',
         updated_at='scraped_date',
     ) 
 }}
 
 select 
-    listing_id,
+    distinct
     room_type,
     scraped_date
 from {{ source('raw', 'listings') }}
