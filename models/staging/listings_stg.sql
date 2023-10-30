@@ -36,13 +36,13 @@ select
     s.price,
     s.has_availability,
     s.availability_30,
-    case when s.number_of_reviews is not null and s.number_of_reviews::text ~ '^[0-9]+$' then s.number_of_reviews else 0 end as number_of_reviews,
-    case when s.review_scores_rating is not null and s.review_scores_rating::text ~ '^[0-9]+$' then s.review_scores_rating else 0 end as review_scores_rating,
-    case when s.review_scores_accuracy is not null and s.review_scores_accuracy::text ~ '^[0-9]+$' then s.review_scores_accuracy  else 0 end as review_scores_accuracy,
-    case when s.review_scores_cleanliness is not null and s.review_scores_cleanliness::text ~ '^[0-9]+$' then s.review_scores_cleanliness else 0 end as review_scores_cleanliness,
-    case when s.review_scores_checkin is not null and s.review_scores_checkin::text ~ '^[0-9]+$' then s.review_scores_checkin else 0 end as review_scores_checkin,
-    case when s.review_scores_communication is not null and s.review_scores_communication::text ~ '^[0-9]+$' then s.review_scores_communication else 0 end as review_scores_communication,
-    case when s.review_scores_value is not null and s.review_scores_value::text ~ '^[0-9]+$' then s.review_scores_value else 0 end as review_scores_value
+    case when s.number_of_reviews != 'NaN' then s.number_of_reviews else 0 end as number_of_reviews,
+    case when s.review_scores_rating != 'NaN'  then s.review_scores_rating else 0 end as review_scores_rating,
+    case when s.review_scores_accuracy != 'NaN'  then s.review_scores_accuracy else 0 end as review_scores_accuracy,
+    case when s.review_scores_cleanliness != 'NaN'  then s.review_scores_cleanliness else 0 end as review_scores_cleanliness,
+    case when s.review_scores_checkin != 'NaN'  then s.review_scores_checkin else 0 end as review_scores_checkin,
+    case when s.review_scores_communication != 'NaN'  then s.review_scores_communication else 0 end as review_scores_communication,
+    case when s.review_scores_value != 'NaN'  then s.review_scores_value else 0 end as review_scores_value
 from source s
 left join neighbourhood_rank r
 on s.listing_id = r.listing_id
