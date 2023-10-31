@@ -10,7 +10,7 @@ total as
 		   , extract(year from scraped_date)), 'MM/YYYY') as month_year,
 	count(distinct listing_id) as total_listings,
 	count(distinct host_id) as total_distinct_hosts
-from warehouse.facts_listings
+from {{ ref('facts_listings') }}
 group by property_type, room_type, accommodates, month_year
 ),
 
@@ -24,7 +24,7 @@ select
 		   , '-'
 		   , extract(year from scraped_date)), 'MM/YYYY') as month_year,
 	count(distinct host_id) as active_distinct_hosts
-from warehouse.facts_listings
+from {{ ref('facts_listings') }}
 where host_is_superhost = 't'
 group by property_type, room_type, accommodates, month_year
 ),
@@ -47,7 +47,7 @@ from
 		   , '-'
 		   , extract(year from scraped_date)), 'MM/YYYY') as month_year,
 	listing_id
-from warehouse.facts_listings
+from {{ ref('facts_listings') }}
 where has_availability = 'f'
 group by property_type, room_type, accommodates, month_year, listing_id
 ) sub
@@ -83,7 +83,7 @@ from
 	review_scores_rating,
 	sum(30 - availability_30) as number_of_stays,
     price
-from warehouse.facts_listings 
+from {{ ref('facts_listings') }} 
 where has_availability='t'
 group by property_type, room_type, accommodates, month_year, listing_id, host_id, review_scores_rating, price
 ) sub

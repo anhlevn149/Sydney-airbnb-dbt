@@ -9,7 +9,7 @@ from
 		   , extract(year from scraped_date)), 'MM/YYYY') as month_year,
 	count(distinct host_id) as distinct_hosts,
 	sum(price * (30 - case when has_availability='t' then availability_30 end)) as total_revenue
-from warehouse.facts_listings
+from {{ ref('facts_listings') }}
 group by host_neighbourhood_lga_name, month_year
 order by host_neighbourhood_lga_name, month_year
 ) foo
