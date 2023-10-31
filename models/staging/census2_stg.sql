@@ -16,7 +16,7 @@ source  as (
 
 renamed as (
     select
-        substring(lga_code_2016 from 5)::integer as lga_code, --extract the lga_code_2016 strings and remove the prefix "lga_" by taking only the 5th character onwards
+        substring(lga_code_2016 from 4)::integer as lga_code, --extract the lga_code_2016 strings and remove the prefix "LGA" by taking only the 5th character onwards
         median_age_persons,
         median_mortgage_repay_monthly
     from source
