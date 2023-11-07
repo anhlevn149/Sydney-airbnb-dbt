@@ -87,7 +87,7 @@ select
 	case 
 		when b.total_listings = 0 or b.total_listings is null or a.active_listings = 0 or a.active_listings is null
 		then 0
-		else (a.active_listings / b.total_listings * 100)::integer
+		else (a.active_listings * 100 / b.total_listings)::integer
 	end as active_listings_rate,
 	a.min_price,
 	a.max_price,
@@ -98,18 +98,18 @@ select
 	case 
 		when c.active_distinct_hosts = 0 or c.active_distinct_hosts is null or b.total_distinct_hosts = 0 or b.total_distinct_hosts is null
 		then 0
-		else (c.active_distinct_hosts / b.total_distinct_hosts * 100)::integer
+		else (c.active_distinct_hosts * 100 / b.total_distinct_hosts )::integer
 	end as superhost_rate,
 	a.average_review_scores_rating,
 	case 
 		when a.active_listings_original = 0 or a.active_listings_original is null or a.active_listings_final = 0 or a.active_listings_final is null
 		then 0 
-		else ((a.active_listings_final / a.active_listings_original - 1) * 100)::integer
+		else ((a.active_listings_final - a.active_listings_original) * 100 / a.active_listings_original)::integer
 	end as active_listings_percent_change,
 	case
 		when d.inactive_listings_original = 0 or d.inactive_listings_original is null or d.inactive_listings_final = 0 or d.inactive_listings_final is null
 		then 0
-		else ((d.inactive_listings_final / d.inactive_listings_original - 1) * 100)::integer 
+		else ((d.inactive_listings_final - d.inactive_listings_original) * 100 / d.inactive_listings_original)::integer 
 	end as inactive_listings_percent_change,
 	a.average_revenue_per_listing
 from active a
